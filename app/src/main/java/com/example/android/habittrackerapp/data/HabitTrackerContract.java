@@ -27,6 +27,8 @@ public class HabitTrackerContract {
         public static final String COLUMN_HABIT_DURATION = "habit_duration";
         //Nature of the habit whether its a good one or a bad one
         public static final String COLUMN_HABIT_NATURE = "habit_nature";
+        //priority of the habit ranging in numbers
+        public static final String COLUMN_HABIT_PRIORITY = "habit_priority";
 
         //Possible values for nature of habit
         public static final String NATURE_GOOD = "good";

@@ -19,7 +19,7 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
     /**
      * Database version
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     /**
      * Default Constructor
@@ -40,7 +40,8 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
                 HabitTrackerContract.HabitTracker.COLUMN_HABIT_DATE + " TEXT NOT NULL, " +
                 HabitTrackerContract.HabitTracker.COLUMN_HABIT_COMMENT + " TEXT NOT NULL, " +
                 HabitTrackerContract.HabitTracker.COLUMN_HABIT_DURATION + " TEXT NOT NULL, " +
-                HabitTrackerContract.HabitTracker.COLUMN_HABIT_NATURE + " TEXT ); ";
+                HabitTrackerContract.HabitTracker.COLUMN_HABIT_NATURE + " TEXT, " +
+                HabitTrackerContract.HabitTracker.COLUMN_HABIT_PRIORITY + " INTEGER NOT NULL DEFAULT 1);";
 
         // Execute the SQL statement
         sqlDb.execSQL(SQL_CREATE_TABLE);
@@ -49,7 +50,7 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
     /**
      * This methods inserts data into the table
      */
-    public void insertData(String name, String date, String comment, String duration, String nature) {
+    public void insertData(String name, String date, String comment, String duration, String nature,int priority) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues habitValues = new ContentValues();
@@ -58,6 +59,7 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
         habitValues.put(HabitTrackerContract.HabitTracker.COLUMN_HABIT_COMMENT, comment);
         habitValues.put(HabitTrackerContract.HabitTracker.COLUMN_HABIT_DURATION, duration);
         habitValues.put(HabitTrackerContract.HabitTracker.COLUMN_HABIT_NATURE, nature);
+        habitValues.put(HabitTrackerContract.HabitTracker.COLUMN_HABIT_PRIORITY,priority);
 
         sqLiteDatabase.insert(HabitTrackerContract.HabitTracker.TABLE_NAME, null, habitValues);
     }
@@ -73,6 +75,7 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
                 HabitTrackerContract.HabitTracker.COLUMN_HABIT_COMMENT,
                 HabitTrackerContract.HabitTracker.COLUMN_HABIT_DURATION,
                 HabitTrackerContract.HabitTracker.COLUMN_HABIT_NATURE,
+                HabitTrackerContract.HabitTracker.COLUMN_HABIT_PRIORITY,
         };
 
         return sqLiteDatabase.query(
@@ -91,6 +94,8 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase sqlDb, int oldVersion, int newVersion) {
+        String upgradeQuery = "ALTER TABLE habits ADD COLUMN habit_priority INTEGER NOT NULL DEFAULT 1";
+        sqlDb.execSQL(upgradeQuery);
 
     }
 }

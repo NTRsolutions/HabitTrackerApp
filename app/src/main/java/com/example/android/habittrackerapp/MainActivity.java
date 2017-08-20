@@ -22,19 +22,19 @@ public class MainActivity extends AppCompatActivity {
 
         mDbHelper.insertData("Eating BreakFast",
                 "08-18-2017", "The most important meal of the day", "30 mins",
-                HabitTrackerContract.HabitTracker.NATURE_GOOD);
+                HabitTrackerContract.HabitTracker.NATURE_GOOD,1);
 
         mDbHelper.insertData("Exercise",
                 "08-18-2017", "Brisk walking", "60 mins",
-                HabitTrackerContract.HabitTracker.NATURE_GOOD);
+                HabitTrackerContract.HabitTracker.NATURE_GOOD,2);
 
         mDbHelper.insertData("Reading",
                 "08-18-2017", "Continued reading haruki murakami", "45 mins",
-                HabitTrackerContract.HabitTracker.NATURE_GOOD);
+                HabitTrackerContract.HabitTracker.NATURE_GOOD,3);
 
         mDbHelper.insertData("Drinking",
                 "08-18-2017", "Had a pint of beer", "45 mins",
-                HabitTrackerContract.HabitTracker.NATURE_BAD);
+                HabitTrackerContract.HabitTracker.NATURE_BAD,4);
 
         /** Read the records */
         Cursor readCursor = mDbHelper.queryData();
@@ -45,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
                         "Habit >> " + readCursor.getInt(0) + " / "
                                 + readCursor.getString(1) + " / "
                                 + readCursor.getString(2) + " / "
-                                + readCursor.getString(3) + " " + readCursor.getString(4) + " / "
-                                + readCursor.getString(5));
+                                + readCursor.getString(3) + " "
+                                + readCursor.getString(4) + " / "
+                                + readCursor.getString(5) + " / "
+                                + readCursor.getInt(6));
             }
         } finally {
             readCursor.close();
